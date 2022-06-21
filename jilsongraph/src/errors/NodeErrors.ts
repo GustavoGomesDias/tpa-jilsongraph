@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import JilsonGraphError from '../JilsoGraphError';
+import JilsonGraphError from './JilsoGraphError';
 
-export class CreateDocumentError extends JilsonGraphError {
+export class CreateNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
     super(`Erro de criação do documento [${entityName}]: ${message}`);
 
@@ -9,7 +9,7 @@ export class CreateDocumentError extends JilsonGraphError {
   }
 }
 
-export class FindDocumentError extends JilsonGraphError {
+export class FindNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
     super(`Erro na obtenção de dados do documento [${entityName}]: ${message}`);
 
@@ -17,10 +17,18 @@ export class FindDocumentError extends JilsonGraphError {
   }
 }
 
-export class UpdateDocumentError extends JilsonGraphError {
+export class UpdateNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
     super(`Erro na atualização de dados do documento [${entityName}]: ${message}`);
 
     this.name = 'UpdateDocumentError';
+  }
+}
+
+export class DeleteNodeError extends JilsonGraphError {
+  constructor(message: string, entityName: string) {
+    super(`Erro na deleção de dados do documento [${entityName}]: ${message}`);
+
+    this.name = 'DeleteNodeError';
   }
 }

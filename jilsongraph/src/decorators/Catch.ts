@@ -15,7 +15,11 @@ const Catch = ({ errorFactory }: CatchProps) => (target: any, key: string, descr
     try {
       return await originalMethod.apply(this, args);
     } catch (err) {
-      const error = errorFactory((err as Error).message, args.entityName);
+      if (args.entityName) {
+        const error = errorFactory((err as Error).message, args.entityName);
+        throw error;
+      }
+      const error = errorFactory((err as Error).message);
       throw error;
     }
   };
