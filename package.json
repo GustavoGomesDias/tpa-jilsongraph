@@ -18,12 +18,14 @@
   },
   "homepage": "https://github.com/GustavoGomesDias/tpa-jilsongraph#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/eslint": "^8.4.3",
     "@types/express": "^4.17.13",
     "@types/node": "^18.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "eslint": "^8.18.0",
