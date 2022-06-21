@@ -3,25 +3,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs/promises';
 import path from 'path';
+import { v4 as uuid } from 'uuid';
 
 import Catch from '../decorators/Catch';
+import FileExists from '../decorators/FileExists';
 import {
   makeCreateNodeError, makeDeleteNodeError, makeFindNodeError, makeUpdateNodeError,
-} from '../errors/factory/Node';
+} from '../errors/factory/node';
 
 export default class Node {
   @Catch({ errorFactory: makeFindNodeError })
+  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
   async find(nodeName: string): Promise<Record<any, any>[]> {
     const nodeItems: Record<any, any>[] = JSON.parse(
-      await fs.readFile(`${path.join(__dirname, '../node/')}${nodeName}.json`, 'utf8'),
+      await fs.readFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, 'utf8'),
     );
     return nodeItems;
   }
 
   @Catch({ errorFactory: makeFindNodeError })
+  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
   async findById(nodeName: string, id: string): Promise<Record<any, any>> {
     const nodeItems: Record<any, any>[] = JSON.parse(
-      await fs.readFile(`${path.join(__dirname, '../node/')}${nodeName}.json`, 'utf8'),
+      await fs.readFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, 'utf8'),
     );
 
     if (nodeItems.length <= 0) {
@@ -34,17 +38,18 @@ export default class Node {
   }
 
   @Catch({ errorFactory: makeCreateNodeError })
+  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
   async add(nodeName: string, itemProperties: Record<any, any>): Promise<void> {
     const nodeItems = await this.find(nodeName);
-    if (!itemProperties.relations) {
-      itemProperties.relations = [];
-    }
+
+    itemProperties.id = uuid();
 
     nodeItems.push(itemProperties);
-    await fs.writeFile(`${path.join(__dirname, '../node/')}${nodeName}.json`, JSON.stringify(nodeItems));
+    await fs.writeFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, JSON.stringify(nodeItems));
   }
 
   @Catch({ errorFactory: makeUpdateNodeError })
+  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
   async edit(nodeName: string, itemProperties: Record<any, any>) {
     const nodeItems = await this.find(nodeName);
 
@@ -54,19 +59,20 @@ export default class Node {
       nodeItems[itemIndex][key] = itemProperties[key];
     }
 
-    await fs.writeFile(`${path.join(__dirname, '../node/')}${nodeName}.json`, JSON.stringify(nodeItems));
+    await fs.writeFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, JSON.stringify(nodeItems));
   }
 
   @Catch({ errorFactory: makeDeleteNodeError })
-  async delete(nodeName: string, itemProperties: Record<any, any>) {
+  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
+  async delete(nodeName: string, id: string) {
     const nodeItems = await this.find(nodeName);
 
-    const itemIndex = nodeItems.map((item) => item.id).indexOf(itemProperties.id);
+    const itemIndex = nodeItems.map((item) => item.id).indexOf(id);
 
     if (itemIndex) {
       nodeItems.splice(itemIndex, 1);
     }
 
-    await fs.writeFile(`${path.join(__dirname, '../node/')}${nodeName}.json`, JSON.stringify(nodeItems));
+    await fs.writeFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, JSON.stringify(nodeItems));
   }
 }

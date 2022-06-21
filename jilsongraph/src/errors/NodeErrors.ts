@@ -3,7 +3,7 @@ import JilsonGraphError from './JilsoGraphError';
 
 export class CreateNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
-    super(`Erro de criação do documento [${entityName}]: ${message}`);
+    super(`Erro de criação do nó [${entityName}]: ${message}`);
 
     this.name = 'CreateDocumentError';
   }
@@ -11,7 +11,7 @@ export class CreateNodeError extends JilsonGraphError {
 
 export class FindNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
-    super(`Erro na obtenção de dados do documento [${entityName}]: ${message}`);
+    super(`Erro na obtenção de dados do nó [${entityName}]: ${message}`);
 
     this.name = 'FindDocumentError';
   }
@@ -19,7 +19,7 @@ export class FindNodeError extends JilsonGraphError {
 
 export class UpdateNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
-    super(`Erro na atualização de dados do documento [${entityName}]: ${message}`);
+    super(`Erro na atualização de dados do nó [${entityName}]: ${message}`);
 
     this.name = 'UpdateDocumentError';
   }
@@ -27,7 +27,7 @@ export class UpdateNodeError extends JilsonGraphError {
 
 export class DeleteNodeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
-    super(`Erro na deleção de dados do documento [${entityName}]: ${message}`);
+    super(`Erro na deleção de dados do nó [${entityName}]: ${message}`);
 
     this.name = 'DeleteNodeError';
   }

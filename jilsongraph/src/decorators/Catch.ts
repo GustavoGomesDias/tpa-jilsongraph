@@ -15,8 +15,8 @@ const Catch = ({ errorFactory }: CatchProps) => (target: any, key: string, descr
     try {
       return await originalMethod.apply(this, args);
     } catch (err) {
-      if (args.entityName) {
-        const error = errorFactory((err as Error).message, args.entityName);
+      if (args.length > 1) {
+        const error = errorFactory((err as Error).message, args[1] || '-');
         throw error;
       }
       const error = errorFactory((err as Error).message);
