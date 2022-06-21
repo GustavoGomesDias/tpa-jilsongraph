@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs/promises';
 import path from 'path';
-import { v4 as uuid } from 'uuid';
 
 import Catch from '../decorators/Catch';
 import { makeCreateDocumentError, makeFindDocumentError, makeUpdateDocumentError } from '../errors/factory/document';
