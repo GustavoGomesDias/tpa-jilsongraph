@@ -1,4 +1,6 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable consistent-return */
+import JilsonGraphError from '@jpgErrors/JilsoGraphError';
 import BadRequestErr from './BadRequestError';
 
 export interface HttpError {
@@ -11,6 +13,13 @@ const handleErrors = (err: Error): HttpError => {
     return {
       error: err.message,
       statusCode: err.statusCode,
+    };
+  }
+
+  if (err instanceof JilsonGraphError) {
+    return {
+      error: err.message,
+      statusCode: 400,
     };
   }
 

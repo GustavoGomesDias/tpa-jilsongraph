@@ -5,7 +5,20 @@ const router = Router();
 
 const controller = new ApiNodeController();
 
-router.post('/', async (req, res) => controller.create(req, res));
-router.delete('/', async (req, res) => controller.delete(req, res));
+router.post('/', async (req, res) => {
+  await controller.create(req, res);
+});
+
+router.get('/all/:nodeName', async (req, res) => {
+  await controller.getAll(req, res);
+});
+
+router.get('/:id', async (req, res) => {
+  await controller.getById(req, res);
+});
+
+router.delete('/', async (req, res) => {
+  await controller.delete(req, res);
+});
 
 export default router;

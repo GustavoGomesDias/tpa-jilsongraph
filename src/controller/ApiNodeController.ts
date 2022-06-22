@@ -23,12 +23,26 @@ export default class ApiNodeController {
   }
 
   @Catch()
+  async getAll(req: Request, res: Response): Promise<Response> {
+    const { nodeName } = req.params;
+
+    const node = await this.entity.find(nodeName);
+
+    return res.status(200).json({ content: node });
+  }
+
+  @Catch()
   @NotEmpty({
-    fields: ['nodeName', 'id'],
-    errorMessages: ['Nome do nó é requerido', 'Id é requerido'],
+    fields: ['nodeName'],
+    errorMessages: ['Nome do nó é requerido.'],
   })
   async getById(req: Request, res: Response): Promise<Response> {
-    const { id, nodeName } = req.body as GetNode;
+    const { id } = req.params;
+    if (!id) {
+      return res.status(404).json({ error: 'Id é requerido.' });
+    }
+
+    const { nodeName } = req.body;
 
     const node = await this.entity.findById(nodeName, id);
 

@@ -13,7 +13,10 @@ import {
 
 export default class Node {
   @Catch({ errorFactory: makeFindNodeError })
-  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
+  @FileExists({
+    path: path.join(__dirname, '../../database/node/'),
+    message: 'Nó não existe.',
+  })
   async find(nodeName: string): Promise<Record<any, any>[]> {
     const nodeItems: Record<any, any>[] = JSON.parse(
       await fs.readFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, 'utf8'),
@@ -22,7 +25,10 @@ export default class Node {
   }
 
   @Catch({ errorFactory: makeFindNodeError })
-  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
+  @FileExists({
+    path: path.join(__dirname, '../../database/node/'),
+    message: 'Nó não existe.',
+  })
   async findById(nodeName: string, id: string): Promise<Record<any, any>> {
     const nodeItems: Record<any, any>[] = JSON.parse(
       await fs.readFile(`${path.join(__dirname, '../../database/node/')}${nodeName}.json`, 'utf8'),
@@ -38,7 +44,10 @@ export default class Node {
   }
 
   @Catch({ errorFactory: makeCreateNodeError })
-  @FileExists({ path: path.join(__dirname, '../../database/node/'), message: 'Nó não existe.' })
+  @FileExists({
+    path: path.join(__dirname, '../../database/node/'),
+    message: 'Nó não existe.',
+  })
   async add(nodeName: string, itemProperties: Record<any, any>): Promise<void> {
     const nodeItems = await this.find(nodeName);
 

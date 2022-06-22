@@ -16,7 +16,7 @@ const Catch = ({ errorFactory }: CatchProps) => (target: any, key: string, descr
       return await originalMethod.apply(this, args);
     } catch (err) {
       if (args.length > 1) {
-        const error = errorFactory((err as Error).message, args[1] || '-');
+        const error = errorFactory((err as Error).message, args[0] || '-');
         throw error;
       }
       const error = errorFactory((err as Error).message);
