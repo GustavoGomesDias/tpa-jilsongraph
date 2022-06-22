@@ -5,7 +5,7 @@ const router = Router();
 
 const controller = new ApiDocumentController();
 
-router.post('/', controller.create);
-router.delete('/', controller.delete);
+router.post('/', async (req, res) => controller.create(req, res));
+router.delete('/', async (req, res) => controller.delete(req, res));
 
 export default router;
