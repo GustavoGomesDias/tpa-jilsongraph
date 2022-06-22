@@ -14,7 +14,7 @@ const FileExists = ({ path, message }: FileExistsProps) => (target: any, key: st
   const originalMethod = descriptor.value;
 
   descriptor.value = async function (...args: any) {
-    if (!fsSync.existsSync(`${path}/${args[0]}.json`)) {
+    if (!fsSync.existsSync(`${path}${args[0]}.json`)) {
       throw new FileError(message);
     }
     return await originalMethod.apply(this, args);

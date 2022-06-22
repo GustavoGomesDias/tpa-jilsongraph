@@ -69,7 +69,7 @@ export default class Node {
 
     const itemIndex = nodeItems.map((item) => item.id).indexOf(id);
 
-    if (itemIndex) {
+    if (itemIndex >= 0) {
       nodeItems.splice(itemIndex, 1);
     }
 

@@ -104,7 +104,7 @@ export default class Edge {
 
     const itemIndex = edge.data.map((item) => item.id).indexOf(id);
 
-    if (itemIndex) {
+    if (itemIndex >= 0) {
       edge.data.splice(itemIndex, 1);
     }
 
