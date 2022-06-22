@@ -11,8 +11,8 @@ export default class ApiNodeController {
 
   @Catch()
   @NotEmpty({
-    fields: ['name', 'properties'],
-    errorMessages: ['O nó não pode ter nenhuma propriedade.'],
+    fields: ['nodeName', 'properties'],
+    errorMessages: ['Por favor, de um nome ao nó.', 'O nó não pode ter nenhuma propriedade.'],
   })
   async create(req: Request, res: Response): Promise<Response> {
     const { nodeName, properties } = req.body as ApiNodeModel;
@@ -24,7 +24,7 @@ export default class ApiNodeController {
 
   @Catch()
   @NotEmpty({
-    fields: ['name', 'id'],
+    fields: ['nodeName', 'id'],
     errorMessages: ['Nome do nó é requerido', 'Id é requerido'],
   })
   async getById(req: Request, res: Response): Promise<Response> {
@@ -37,7 +37,7 @@ export default class ApiNodeController {
 
   @Catch()
   @NotEmpty({
-    fields: ['name', 'properties'],
+    fields: ['nodeName', 'properties'],
     errorMessages: ['O nó não pode ter nenhuma propriedade.'],
   })
   async update(req: Request, res: Response): Promise<Response> {
@@ -50,7 +50,7 @@ export default class ApiNodeController {
 
   @Catch()
   @NotEmpty({
-    fields: ['name', 'id'],
+    fields: ['nodeName', 'id'],
     errorMessages: ['Nome do nó é requerido', 'Id é requerido'],
   })
   async delete(req: Request, res: Response): Promise<Response> {
