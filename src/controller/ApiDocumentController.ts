@@ -23,8 +23,8 @@ export default class ApiDocumentController {
 
   @Catch()
   @NotEmpty({
-    fields: ['name'],
-    errorMessages: ['É preciso passar um nome para a deleção de um nó ou aresta.'],
+    fields: ['name', 'type'],
+    errorMessages: ['É preciso passar um nome para a deleção de um nó ou aresta.', 'É preciso de um tipo para saber o que se deve criar.'],
   })
   async delete(req: Request, res: Response): Promise<Response> {
     const { name, type } = req.body as ApiDocumentModel;
