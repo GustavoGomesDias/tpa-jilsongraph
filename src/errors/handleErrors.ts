@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable consistent-return */
-import JilsonGraphError from '@jpgErrors/JilsoGraphError';
+import JilsonGraphError from '@jpg/errors/JilsoGraphError';
 import BadRequestErr from './BadRequestError';
 
 export interface HttpError {

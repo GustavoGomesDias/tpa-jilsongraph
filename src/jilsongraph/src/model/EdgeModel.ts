@@ -3,7 +3,7 @@
 export default interface EdgeModel {
   id: string
   firstNodeName: string
-  secomdNodeName: string
+  secondNodeName: string
   directed: boolean
   data: {
     id: string
@@ -13,10 +13,18 @@ export default interface EdgeModel {
   }[]
 }
 
+export interface CreateEmptyEdge {
+  edgeName: string
+  firstNodeName: string
+  secondNodeName: string
+  directed: boolean
+  data: []
+}
+
 export interface EdgeModelWithNodeContent {
   id: string
   firstNodeName: string
-  secomdNodeName: string
+  secondNodeName: string
   directed: boolean
   data: {
     id: string
@@ -36,5 +44,6 @@ export interface EdgeInfo {
   id: string
   firstNodeId: string
   secondNodeId: string
+  directed: boolean
   edgeInfos: Record<any, any>
 }

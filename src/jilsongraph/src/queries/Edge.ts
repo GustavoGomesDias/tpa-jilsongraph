@@ -7,10 +7,13 @@ import { v4 as uuid } from 'uuid';
 
 import Catch from '../decorators/Catch';
 import FileExists from '../decorators/FileExists';
+import NotEmptyEdge from '../decorators/NotEmptyEdge';
 import {
   makeCreateEdgeError, makeDeleteEdgeError, makeFindEdgeError, makeUpdateEdgeError,
 } from '../errors/factory/edge';
-import EdgeModel, { AddEdge, EdgeInfo, EdgeModelWithNodeContent } from '../model/EdgeModel';
+import EdgeModel, {
+  AddEdge, CreateEmptyEdge, EdgeInfo, EdgeModelWithNodeContent,
+} from '../model/EdgeModel';
 import Node from './Node';
 
 export default class Edge {
@@ -47,16 +50,16 @@ export default class Edge {
     }
 
     const firstNode = await this.node.find(edge.firstNodeName);
-    const secondNode = await this.node.find(edge.secomdNodeName);
+    const secondNode = await this.node.find(edge.secondNodeName);
 
     const {
-      id, directed, firstNodeName, secomdNodeName,
+      id, directed, firstNodeName, secondNodeName,
     } = edge;
     const edgeItemsWithNodeContent: EdgeModelWithNodeContent = {
       id,
       directed,
       firstNodeName,
-      secomdNodeName,
+      secondNodeName,
       data: edge.data.map((item) => ({
         id: item.id,
         edgeInfos: item.edgeInfos,
@@ -69,15 +72,27 @@ export default class Edge {
   }
 
   @Catch({ errorFactory: makeCreateEdgeError })
+  @NotEmptyEdge({
+    fields: ['edgeName', 'firstNodeName', 'secondNodeName', 'directed'],
+    errorMessages: [
+      'É preciso passar um nome para a aresta.',
+      'É preciso passar o nome do primeiro nó que você quer usar.',
+      'É preciso passar o nome do primeiro nó que você quer usar.',
+      'É preciso dizer se o grafo é ou não direcionado.',
+    ],
+  })
+  async createEdge(edgeProperty: CreateEmptyEdge): Promise<void> {
+    edgeProperty.data = [];
+    await fs.writeFile(`${path.join(__dirname, '../../database/edge/')}${edgeProperty.edgeName}.json`, JSON.stringify(edgeProperty));
+  }
+
+  @Catch({ errorFactory: makeCreateEdgeError })
   @FileExists({ path: path.join(__dirname, '../../database/edge/'), message: 'Aresta não existe.' })
-  async add(edgeName: string, edgeProperty: AddEdge[]): Promise<void> {
+  async addInEdge(edgeName: string, edgeProperty: AddEdge[]): Promise<void> {
     const edge = await this.find(edgeName);
-    edgeProperty.map((item) => ({
-      id: uuid(),
-      ...item,
-    }));
 
     for (const item of edgeProperty) {
+      (item as EdgeInfo).id = uuid();
       edge.data.push(item as EdgeInfo);
     }
     await fs.writeFile(`${path.join(__dirname, '../../database/edge/')}${edgeName}.json`, JSON.stringify(edge));

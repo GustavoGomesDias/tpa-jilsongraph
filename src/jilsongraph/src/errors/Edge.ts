@@ -3,7 +3,7 @@ import JilsonGraphError from './JilsoGraphError';
 
 export class CreateEdgeError extends JilsonGraphError {
   constructor(message: string, entityName: string) {
-    super(`Erro de criação do relacionamento [${entityName}]: ${message}`);
+    super(`Erro de criação do relacionamento ${entityName ? `[${entityName}]` : ''}: ${message}.`);
 
     this.name = 'CreateEdgeError';
   }
