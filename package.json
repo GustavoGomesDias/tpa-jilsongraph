@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && tsc-alias",
-    "local-start": "node  dist/server.js",
-    "start": "npm ci && npm run build && node dist/server.js",
+    "start": "node dist/server.js",
+    "postinstall": "npm run build",
     "dev": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register server.ts"
   },
   "repository": {
