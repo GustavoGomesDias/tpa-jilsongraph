@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import docRoute from './routes/document';
+import appRoute from './routes/app';
 import nodeRoute from './routes/node';
 import edgeRoute from './routes/edge';
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(cors(options));
 
 // Routes
+app.use('/', appRoute);
 app.use('/doc', docRoute);
 app.use('/node', nodeRoute);
 app.use('/edge', edgeRoute);
