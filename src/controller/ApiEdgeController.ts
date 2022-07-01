@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
 import Catch from '@decorators/Catch';
 import NotEmpty from '@decorators/NotEmpty';
-import Edge from '@jilsongraph/Edge';
-import { AddEdge } from '@jpg/cases/EdgeModel';
+import Graph from '@jilsongraph/Graph';
+import { AddEdge } from '@jpg/cases/GraphModel';
 import { Request, Response } from 'express';
 
 export default class ApiEdgeController {
-  private readonly entity = new Edge();
+  private readonly entity = new Graph();
 
   @Catch()
   async getAll(req: Request, res: Response): Promise<Response> {

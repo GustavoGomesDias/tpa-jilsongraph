@@ -11,12 +11,12 @@ import NotEmptyEdge from '../decorators/NotEmptyEdge';
 import {
   makeCreateEdgeError, makeDeleteEdgeError, makeFindEdgeError, makeUpdateEdgeError,
 } from '../errors/factory/edge';
-import EdgeModel, {
-  AddEdge, CreateEmptyEdge, EdgeInfo, EdgeModelWithNodeContent,
-} from '../model/EdgeModel';
+import GraphModel, {
+  AddEdge, CreateEmptyEdge, EdgeInfo, GrpahModelWithNodeContent,
+} from '../model/GraphModel';
 import Node from './Node';
 
-export default class Edge {
+export default class Graph {
   public readonly node: Node;
 
   constructor() {
@@ -25,8 +25,8 @@ export default class Edge {
 
   @Catch({ errorFactory: makeFindEdgeError })
   @FileExists({ path: path.join(__dirname, '../../database/edge/'), message: 'Aresta não existe.' })
-  async find(edge: string): Promise<EdgeModel> {
-    const edgeItems: EdgeModel = JSON.parse(
+  async find(edge: string): Promise<GraphModel> {
+    const edgeItems: GraphModel = JSON.parse(
       await fs.readFile(`${path.join(__dirname, '../../database/edge/')}${edge}.json`, 'utf8'),
     );
     return edgeItems;
@@ -41,7 +41,7 @@ export default class Edge {
   @Catch({ errorFactory: makeFindEdgeError })
   @FileExists({ path: path.join(__dirname, '../../database/edge/'), message: 'Aresta não existe.' })
   async findWithNodeData(edgeName: string): Promise<Record<any, any>> {
-    const edge: EdgeModel = JSON.parse(
+    const edge: GraphModel = JSON.parse(
       await fs.readFile(`${path.join(__dirname, '../../database/edge/')}${edgeName}.json`, 'utf8'),
     );
 
@@ -55,7 +55,7 @@ export default class Edge {
     const {
       id, directed, firstNodeName, secondNodeName,
     } = edge;
-    const edgeItemsWithNodeContent: EdgeModelWithNodeContent = {
+    const edgeItemsWithNodeContent: GrpahModelWithNodeContent = {
       id,
       directed,
       firstNodeName,

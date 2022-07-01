@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable semi */
-export default interface EdgeModel {
+export default interface GraphModel {
   id: string
   firstNodeName: string
   secondNodeName: string
@@ -21,7 +21,7 @@ export interface CreateEmptyEdge {
   data: []
 }
 
-export interface EdgeModelWithNodeContent {
+export interface GrpahModelWithNodeContent {
   id: string
   firstNodeName: string
   secondNodeName: string
