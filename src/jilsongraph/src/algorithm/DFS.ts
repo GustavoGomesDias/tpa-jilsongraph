@@ -9,23 +9,25 @@ import { DFSNode } from './usecases/UseDFS';
 export default class DFS {
   private time = 0;
   
-  visit(graph: GraphModel, startedNodes: DFSNode[], node: DFSNode) {
+  visit(graph: GraphModel, dfsNodes: DFSNode[], node: DFSNode) {
     node.color = 'g';
     this.time++;
     node.discoveryTime = this.time;
 
     for (const graphEdge of graph.data) {
       if (graphEdge.firstNodeId === node.id) {
-        const actualNodeVistIndex = startedNodes.map((itemNode) => itemNode.id).indexOf(graphEdge.firstNodeId);
-        if (startedNodes[actualNodeVistIndex].color === 'w') {
-          this.visit(graph, startedNodes, startedNodes[actualNodeVistIndex]);
+        const actualNodeVistIndex = dfsNodes.map((itemNode) => itemNode.id).indexOf(graphEdge.firstNodeId);
+        if (dfsNodes[actualNodeVistIndex].color === 'w') {
+          dfsNodes[actualNodeVistIndex].pred = node.id;
+          this.visit(graph, dfsNodes, dfsNodes[actualNodeVistIndex]);
         }
       }
 
       if (graphEdge.secondNodeId === node.id) {
-        const actualNodeVistIndex = startedNodes.map((itemNode) => itemNode.id).indexOf(graphEdge.secondNodeId);
-        if (startedNodes[actualNodeVistIndex].color === 'w') {
-          this.visit(graph, startedNodes, startedNodes[actualNodeVistIndex]);
+        const actualNodeVistIndex = dfsNodes.map((itemNode) => itemNode.id).indexOf(graphEdge.secondNodeId);
+        if (dfsNodes[actualNodeVistIndex].color === 'w') {
+          dfsNodes[actualNodeVistIndex].pred = node.id;
+          this.visit(graph, dfsNodes, dfsNodes[actualNodeVistIndex]);
         }
       }
     }
@@ -35,7 +37,7 @@ export default class DFS {
     node.nodeFinishedTime = this.time;
   }
 
-  async DFS(edgeName: string) {
+  async runDFS(edgeName: string) {
     const queryClass = new Graph();
 
     const graph = await queryClass.find(edgeName);
@@ -54,13 +56,15 @@ export default class DFS {
       nodeFinishedTime: 0,
     }]));
 
-    const startedNodes: DFSNode[] = [...new Set(listNode)];
+    const dfsNodes: DFSNode[] = [...new Set(listNode)];
 
     this.time = 0;
-    for (const node of startedNodes) {
+    for (const node of dfsNodes) {
       if (node.color === 'w') {
-        this.visit(graph, startedNodes, node);
+        this.visit(graph, dfsNodes, node);
       }
     }
+
+    return dfsNodes;
   }
 }
