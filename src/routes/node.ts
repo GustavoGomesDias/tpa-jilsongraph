@@ -13,7 +13,7 @@ router.get('/all/:nodeName', async (req, res) => {
   await controller.getAll(req, res);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:nodeName/:id', async (req, res) => {
   await controller.getById(req, res);
 });
 

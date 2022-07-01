@@ -13,8 +13,10 @@ export default class Document {
   @Catch({ errorFactory: makeCreateDocumentError })
   @CreateFileIfNotExists({ path: path.join(__dirname, '../../database/') })
   async createDocument(docName: string, docType: 'node' | 'edge'): Promise<void> {
-    if (!fsSync.existsSync('../../database/')) {
-      fsSync.mkdirSync('../../database/');
+    if (!fsSync.existsSync(path.join(__dirname, '../../database/'))) {
+      fsSync.mkdirSync(path.join(__dirname, '../../database/'));
+      fsSync.mkdirSync(path.join(__dirname, '../../database/node'));
+      fsSync.mkdirSync(path.join(__dirname, '../../database/edge'));
     }
 
     await fs.writeFile(`${path.join(__dirname, `../../database/${docType}/`)}${docName}.json`, JSON.stringify([]));
