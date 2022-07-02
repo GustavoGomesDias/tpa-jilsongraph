@@ -40,13 +40,13 @@ export default class Graph {
 
   @Catch({ errorFactory: makeFindEdgeError })
   @FileExists({ path: path.join(__dirname, '../../database/edge/'), message: 'Aresta não existe.' })
-  async findWithNodeData(edgeName: string): Promise<Record<any, any>> {
+  async findWithNodeData(edgeName: string): Promise<GrpahModelWithNodeContent> {
     const edge: GraphModel = JSON.parse(
       await fs.readFile(`${path.join(__dirname, '../../database/edge/')}${edgeName}.json`, 'utf8'),
     );
 
     if (edge.data.length <= 0) {
-      return [];
+      throw new Error('Nenhum item encontrado.');
     }
 
     const firstNode = await this.node.find(edge.firstNodeName);
