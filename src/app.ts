@@ -9,6 +9,7 @@ import docRoute from './routes/document';
 import appRoute from './routes/app';
 import nodeRoute from './routes/node';
 import edgeRoute from './routes/edge';
+import algRoute from './routes/algorithm';
 
 // const whitelist = ['http://example1.com', 'http://example2.com'];
 const options: cors.CorsOptions = {
@@ -35,5 +36,6 @@ app.use('/', appRoute);
 app.use('/doc', docRoute);
 app.use('/node', nodeRoute);
 app.use('/edge', edgeRoute);
+app.use('/alg', algRoute);
 
 export default app;
