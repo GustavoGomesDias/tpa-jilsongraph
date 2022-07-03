@@ -35,7 +35,7 @@ export default class ApiEdgeController {
 
   @Catch()
   @NotEmpty({
-    fields: ['edgeName', 'firstNodeName', 'secomdNodeName', 'directed'],
+    fields: ['edgeName', 'firstNodeName', 'secondNodeName', 'directed'],
     errorMessages: [
       'É preciso passar um nome para a aresta.',
       'É preciso passar o nome do primeiro nó que você quer usar.',
