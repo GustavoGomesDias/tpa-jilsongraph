@@ -61,6 +61,7 @@ export default class Graph {
       firstNodeName,
       secondNodeName,
       data: edge.data.map((item) => ({
+        edgeInfo: item.edgeInfos,
         id: item.id,
         edgeInfos: item.edgeInfos,
         firstNode: firstNode[this.getNodeIndexById(firstNode, item.firstNodeId)],
