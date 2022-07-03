@@ -12,11 +12,14 @@ import {
 } from '../errors/factory/node';
 
 export default class Node {
-  @Catch({ errorFactory: makeFindNodeError })
+  // @Catch({ errorFactory: makeFindNodeError })
   async getAllNodes() {
-    const node = await fs.readdir(path.join(__dirname, '../../database/node/'));
-
-    return node;
+    try {
+      const node = await fs.readdir(path.join(__dirname, '../../database/node/'));
+      return node;
+    } catch (err) {
+      return [];
+    }
   }
 
   @Catch({ errorFactory: makeFindNodeError })

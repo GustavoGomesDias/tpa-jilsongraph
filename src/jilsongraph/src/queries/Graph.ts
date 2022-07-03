@@ -23,11 +23,15 @@ export default class Graph {
     this.node = new Node();
   }
 
-  @Catch({ errorFactory: makeFindEdgeError })
+  // @Catch({ errorFactory: makeFindEdgeError })
   async getAllEdges() {
-    const edges = await fs.readdir(path.join(__dirname, '../../database/edge/'));
+    try {
+      const edges = await fs.readdir(path.join(__dirname, '../../database/edge/'));
 
-    return edges;
+      return edges;
+    } catch (err) {
+      return [];
+    }
   }
 
   @Catch({ errorFactory: makeFindEdgeError })
