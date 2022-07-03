@@ -13,6 +13,13 @@ import {
 
 export default class Node {
   @Catch({ errorFactory: makeFindNodeError })
+  async getAllNodes() {
+    const node = await fs.readdir(path.join(__dirname, '../../database/node/'));
+
+    return node;
+  }
+
+  @Catch({ errorFactory: makeFindNodeError })
   @FileExists({
     path: path.join(__dirname, '../../database/node/'),
     message: 'Nó não existe.',

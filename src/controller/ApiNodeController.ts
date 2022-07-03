@@ -10,6 +10,13 @@ export default class ApiNodeController {
   private readonly entity = new Node();
 
   @Catch()
+  async getAllEdges(req: Request, res: Response): Promise<Response> {
+    const nodes = await this.entity.getAllNodes();
+
+    return res.status(200).json({ content: nodes });
+  }
+
+  @Catch()
   @NotEmpty({
     fields: ['nodeName', 'properties'],
     errorMessages: ['Por favor, de um nome ao nó.', 'O nó não pode ter nenhuma propriedade.'],
