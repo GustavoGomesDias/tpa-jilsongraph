@@ -25,7 +25,7 @@ export default class Graph {
 
   @Catch({ errorFactory: makeFindEdgeError })
   async getAllEdges() {
-    const edges = await fs.readdir(path.join(__dirname, '../../database/'));
+    const edges = await fs.readdir(path.join(__dirname, '../../database/edge/'));
 
     return edges;
   }
