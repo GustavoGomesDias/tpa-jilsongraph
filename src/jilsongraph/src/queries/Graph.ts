@@ -24,6 +24,13 @@ export default class Graph {
   }
 
   @Catch({ errorFactory: makeFindEdgeError })
+  async getAllEdges() {
+    const edges = await fs.readdir(path.join(__dirname, '../../database/'));
+
+    return edges;
+  }
+
+  @Catch({ errorFactory: makeFindEdgeError })
   @FileExists({ path: path.join(__dirname, '../../database/edge/'), message: 'Aresta não existe.' })
   async find(edge: string): Promise<GraphModel> {
     const edgeItems: GraphModel = JSON.parse(

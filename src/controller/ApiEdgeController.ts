@@ -9,6 +9,13 @@ export default class ApiEdgeController {
   private readonly entity = new Graph();
 
   @Catch()
+  async getAllEdges(req: Request, res: Response): Promise<Response> {
+    const edges = await this.entity.getAllEdges();
+
+    return res.status(200).json({ content: edges });
+  }
+
+  @Catch()
   async getAll(req: Request, res: Response): Promise<Response> {
     const { edge } = req.params;
 

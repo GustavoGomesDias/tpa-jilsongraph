@@ -5,6 +5,10 @@ const router = Router();
 
 const controller = new ApiEdgeController();
 
+router.get('/', async (req, res) => {
+  await controller.getAllEdges(req, res);
+});
+
 router.get('/:edge', async (req, res) => {
   await controller.getAll(req, res);
 });
