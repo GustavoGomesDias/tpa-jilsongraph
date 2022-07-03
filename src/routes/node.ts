@@ -8,6 +8,9 @@ const controller = new ApiNodeController();
 router.post('/', async (req, res) => {
   await controller.create(req, res);
 });
+router.get('/', async (req, res) => {
+  await controller.getAllNodes(req, res);
+});
 
 router.get('/all/:nodeName', async (req, res) => {
   await controller.getAll(req, res);
