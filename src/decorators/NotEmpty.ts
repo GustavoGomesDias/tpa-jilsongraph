@@ -16,7 +16,8 @@ const NotEmpty = ({ fields, errorMessages }: IsFieldValidProps) => (target: any,
   const originalMethod = descriptor.value;
 
   descriptor.value = async function (...args: any[]) {
-    const { body } = args[0] as Request;
+    const { body, params } = args[0] as Request;
+    console.log(params);
     let messagePosition = 0;
     for (const field of fields) {
       if (!validationField(body[field])) {

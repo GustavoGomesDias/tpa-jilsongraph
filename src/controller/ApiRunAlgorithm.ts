@@ -7,13 +7,13 @@ import { Request, Response } from 'express';
 export default class ApiRunAlgorithm {
   private readonly entity = new Algorithms();
 
+  // @NotEmpty({
+  //   fields: ['edgeName'],
+  //   errorMessages: ['É preciso passar um nome para achar o grafo que será usado.'],
+  // })
   @Catch()
-  @NotEmpty({
-    fields: ['edgeName'],
-    errorMessages: ['É preciso passar um nome para achar o grafo que será usado.'],
-  })
   async dfs(req: Request, res: Response): Promise<Response> {
-    const { edgeName } = req.body;
+    const { edgeName } = req.params;
 
     const result = await this.entity.runDFS(edgeName);
 
