@@ -14,7 +14,7 @@ const CreateFileIfNotExists = ({ path }: CreateFileIfNotExistsProps) => (target:
 
   descriptor.value = async function (...args: any) {
     if (fsSync.existsSync(`${path}/${args[1]}/${args[0]}.json`)) {
-      throw new FileError(`Já existe ${args[1] === 'node' ? 'algum nó' : 'alguma aresta'} com este nome.`);
+      // throw new FileError(`Já existe ${args[1] === 'node' ? 'algum nó' : 'alguma aresta'} com este nome.`);
     }
     return await originalMethod.apply(this, args);
   };

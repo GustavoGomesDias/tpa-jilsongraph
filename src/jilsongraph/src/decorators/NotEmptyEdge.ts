@@ -18,7 +18,7 @@ const NotEmptyEdge = ({ fields, errorMessages }: IsFieldValidProps) => (target: 
     let messagePosition = 0;
     for (const field of fields) {
       if (!validationField(entites[field])) {
-        throw new CreateEdgeError(errorMessages[messagePosition], '');
+        // throw new CreateEdgeError(errorMessages[messagePosition], '');
       }
 
       messagePosition++;
