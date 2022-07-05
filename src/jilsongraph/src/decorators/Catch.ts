@@ -17,10 +17,12 @@ const Catch = ({ errorFactory }: CatchProps) => (target: any, key: string, descr
     } catch (err) {
       if (args.length > 1) {
         const error = errorFactory((err as Error).message, args[0] || '-');
-        throw error;
+        // throw error;
+        console.log(error);
       }
       const error = errorFactory((err as Error).message);
-      throw error;
+      console.log(error);
+      // throw error;
     }
   };
 
